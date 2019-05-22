@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author Joel B
  */
 public class User {
+    private int id;
     private boolean sexe;
     private String nom;
     private String prenom;
@@ -18,6 +19,9 @@ public class User {
     private int taille;
     private String motDePasse;
     private Date dateDeNaissance;
+    
+    public User() {
+    }
 
     public User(String nom, String prenom, String mail, String motDePasse) {
         this.nom = nom;
@@ -29,6 +33,14 @@ public class User {
     public void setSexe(boolean sexe) {
         this.sexe = sexe;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }  
 
     public void setNom(String nom) {
         this.nom = nom;
