@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author ESIC
  */
+
 public class FnConnexion extends javax.swing.JFrame {
 
     /**
@@ -198,8 +199,9 @@ public class FnConnexion extends javax.swing.JFrame {
         try{
             User user = UserDao.getByLoginPass(identifiant, mdp);
             if(user!=null){
-                 FnPrincipal fnp = new FnPrincipal();
-                 fnp.setVisible(true);
+                // FnPrincipal fnp = new FnPrincipal();
+                 
+                 //fnp.setVisible(true);
             }
              else{
                  lbMsg.setText("Identifiant ou mot de passe incorrect !");
