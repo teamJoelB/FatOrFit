@@ -37,12 +37,17 @@ public class FnPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         lbRecap = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taRecap = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         cbProfil = new javax.swing.JComboBox<>();
         jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(165, 209, 82));
 
@@ -79,9 +84,9 @@ public class FnPrincipal extends javax.swing.JFrame {
 
         lbRecap.setText("Récapitulatif du jour");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taRecap.setColumns(20);
+        taRecap.setRows(5);
+        jScrollPane1.setViewportView(taRecap);
 
         jButton1.setText("Afficher sur la semaine");
 
@@ -176,6 +181,10 @@ public class FnPrincipal extends javax.swing.JFrame {
             fnMp.setVisible(true);
             this.setVisible(false); 
     }//GEN-LAST:event_cbProfilActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
         if(cbProfil.getSelectedItem()=="Aide"){
          FnAide fnAi = new FnAide();
          fnAi.setVisible(true);
@@ -224,8 +233,8 @@ public class FnPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbLastConnexion;
     private javax.swing.JLabel lbRecap;
+    private javax.swing.JTextArea taRecap;
     // End of variables declaration//GEN-END:variables
 }
