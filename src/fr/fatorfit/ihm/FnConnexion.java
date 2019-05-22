@@ -186,8 +186,8 @@ public class FnConnexion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInscriptionActionPerformed
-        FnInscription fnIn = new FnInscription();
-        fnIn.setVisible(true);
+      //  FnInscription fnIn = new FnInscription();
+       // fnIn.setVisible(true);
         this.setVisible(false); /*Ferme la fenêtre de connexion*/
     }//GEN-LAST:event_btInscriptionActionPerformed
 
