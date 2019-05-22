@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.solutec.dao;
+package fr.fatorfit.dao;
 
 import fr.fatorfit.model.User;
 import java.sql.Connection;
@@ -21,20 +21,22 @@ import java.util.List;
 public class UserDao {
     public static User getByLoginPass(String login, String mdp) throws SQLException {
         User u = null;
-        String sql = "select * from personne where mail=? AND password=?";
+        String sql = "select * from user where mail=? AND motdepasse=?";
         Connection connexion = ConnectDb.getConnection();
-        PreparedStatement requette = connexion.prepareStatement(sql);
-        requette.setString(1, login);
-        requette.setString(2, mdp);
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        requete.setString(1, login);
+        requete.setString(2, mdp);
         
-        ResultSet rs = requette.executeQuery();
+        ResultSet rs = requete.executeQuery();
         
         if(rs.next()){
                 u = new User();
-                u.setId(rs.getInt("idpersonne"));
+                u.setId(rs.getInt("iduser"));
                 u.setNom(rs.getString("nom"));
                 u.setPrenom(rs.getString("prenom"));
-                u.setMail(rs.getString("mail"));
+                u.setDateDeNaissance(rs.getDate("date_de_naissance"));
+                u.setSexe(rs.getBoolean("sexe"));
+                u.setTaille(rs.getInt("taille"));
         }
         
         return u;
@@ -44,26 +46,26 @@ public class UserDao {
         String sql = "insert into person (nom, prenom, mail, mdp) VALUES (?,?,?,?)";
         Connection connexion = ConnectDb.getConnection();
         
-        PreparedStatement requette = connexion.prepareStatement(sql);
+        PreparedStatement requete = connexion.prepareStatement(sql);
         
-        requette.setString(1, u.getNom());
-        requette.setString(1, u.getPrenom());
-        requette.setString(1, u.getMail());
-        requette.setString(1, u.getMotDePasse());
+        requete.setString(1, u.getNom());
+        requete.setString(1, u.getPrenom());
+        requete.setString(1, u.getMail());
+        requete.setString(1, u.getMotDePasse());
   
     }
     
     public static List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         Connection connexion = ConnectDb.getConnection();
-        String sql = "select * from personne";
+        String sql = "select * from user";
         Statement requette = connexion.createStatement();
         ResultSet rs = requette.executeQuery(sql);
         
         
         while(rs.next()){
             User u = new User();
-            u.setId(rs.getInt("idpersonne"));
+            u.setId(rs.getInt("iduser"));
             u.setNom(rs.getString("nom"));
             u.setPrenom(rs.getString("prenom"));
             u.setMail(rs.getString("mail"));

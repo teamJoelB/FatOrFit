@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.solutec.ihm;
+package fr.fatorfit.ihm;
+
+import fr.fatorfit.dao.UserDao;
+import fr.fatorfit.model.User;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,6 +42,8 @@ public class FnConnexion extends javax.swing.JFrame {
         txtMdp = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         btInscription = new javax.swing.JButton();
+        btConnexion = new javax.swing.JButton();
+        lbMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,42 +89,71 @@ public class FnConnexion extends javax.swing.JFrame {
         jLabel3.setText("Pas encore de compte ?");
 
         btInscription.setText("Inscription");
+        btInscription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInscriptionActionPerformed(evt);
+            }
+        });
+
+        btConnexion.setText("Connexion");
+        btConnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConnexionActionPerformed(evt);
+            }
+        });
+
+        lbMsg.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout PanelDroitLayout = new javax.swing.GroupLayout(PanelDroit);
         PanelDroit.setLayout(PanelDroitLayout);
         PanelDroitLayout.setHorizontalGroup(
             PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelDroitLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbIdentifiant)
-                    .addComponent(txtIdentifiant)
-                    .addComponent(lbMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMdp, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(74, 74, 74))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDroitLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(95, 95, 95)
+                .addComponent(btConnexion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btInscription)
-                .addGap(113, 113, 113))
+                .addGap(107, 107, 107))
+            .addGroup(PanelDroitLayout.createSequentialGroup()
+                .addGroup(PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelDroitLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelDroitLayout.createSequentialGroup()
+                                .addComponent(txtMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)
+                                .addComponent(jLabel3))
+                            .addComponent(lbIdentifiant)
+                            .addComponent(txtIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelDroitLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lbMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         PanelDroitLayout.setVerticalGroup(
             PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelDroitLayout.createSequentialGroup()
                 .addGap(136, 136, 136)
-                .addGroup(PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbIdentifiant)
-                    .addComponent(jLabel3))
+                .addComponent(lbIdentifiant)
                 .addGap(18, 18, 18)
                 .addComponent(txtIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btInscription)
-                .addGap(10, 10, 10)
-                .addComponent(lbMdp)
                 .addGap(18, 18, 18)
-                .addComponent(txtMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addComponent(lbMdp)
+                .addGroup(PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelDroitLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(PanelDroitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btConnexion)
+                            .addComponent(btInscription)))
+                    .addGroup(PanelDroitLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel3)))
+                .addGap(32, 32, 32)
+                .addComponent(lbMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -149,6 +184,32 @@ public class FnConnexion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInscriptionActionPerformed
+        FnInscription fnIn = new FnInscription();
+        fnIn.setVisible(true);
+        this.setVisible(false); /*Ferme la fenêtre de connexion*/
+    }//GEN-LAST:event_btInscriptionActionPerformed
+
+    private void btConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConnexionActionPerformed
+        String identifiant = txtIdentifiant.getText();
+        String mdp = txtMdp.getText();
+        
+        try{
+            User user = UserDao.getByLoginPass(identifiant, mdp);
+            if(user!=null){
+                 FnPrincipal fnp = new FnPrincipal();
+                 fnp.setVisible(true);
+            }
+             else{
+                 lbMsg.setText("Identifiant ou mot de passe incorrect !");
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        
+        
+    }//GEN-LAST:event_btConnexionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +249,7 @@ public class FnConnexion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDroit;
     private javax.swing.JPanel PanelGauche;
+    private javax.swing.JButton btConnexion;
     private javax.swing.JButton btInscription;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -195,6 +257,7 @@ public class FnConnexion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbIdentifiant;
     private javax.swing.JLabel lbMdp;
+    private javax.swing.JLabel lbMsg;
     private javax.swing.JTextField txtIdentifiant;
     private javax.swing.JPasswordField txtMdp;
     // End of variables declaration//GEN-END:variables
