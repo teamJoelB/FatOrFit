@@ -7,6 +7,7 @@ package fr.fatorfit.ihm;
 
 import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
+import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -61,6 +62,11 @@ public class FnInscription2 extends javax.swing.JFrame {
         btCancel = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btConfirmer.setText("Confirmer");
         btConfirmer.addActionListener(new java.awt.event.ActionListener() {
@@ -239,19 +245,61 @@ public class FnInscription2 extends javax.swing.JFrame {
             if (mdp.equals(confirmerMdp)){
 
                 String nom = txtNom.getText();
-                String prenom = txtPrenom.getText();  
-                User u = new User(nom, prenom, mail, mdp);
-                try {
-                    UserDao.insert(u);
-                    this.setVisible(false);
-                    initFnCo();
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, e.getMessage());
-                }
-                FnConnexion fnCon = new FnConnexion();
-                this.setVisible(false);
-                fnCon.setVisible(true);
+                String prenom = txtPrenom.getText();
                 
+                int taille=1;
+                double poids=1;
+                try {
+                    taille = Integer.parseInt(txtTaille.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Taille non valide");
+                }
+                
+                try {
+                    poids = Double.parseDouble(txtPoids.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Poids non valide");
+                }
+                
+                if (poids>0) {
+                    if (taille>0){
+    
+                    Date dateDeNaissance;
+                    User u = new User(nom, prenom, mail, mdp);
+                    
+                    String sexeString= (String)sexeBox.getSelectedItem();
+                    if (!sexeString.equals("non renseigné")){
+                        boolean sexe;
+                        if (sexeString.equals("homme")){
+                             sexe = false;
+                        }
+                        else{
+                             sexe = true;
+                        }
+                        u.setSexe(sexe);
+                    }
+                    
+                    // gerer taille, sexe, ddn, poids
+                    if (mdp.equals(confirmerMdp))
+                    try {
+                        UserDao.insert(u);
+                        this.setVisible(false);
+                        initFnCo();
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(rootPane, e.getMessage());
+                    }
+                    FnConnexion fnCon = new FnConnexion();
+                    this.setVisible(false);
+                    fnCon.setVisible(true);
+                    } 
+                    
+                    else{
+                      JOptionPane.showMessageDialog(rootPane, "Taille non valide");
+                     }
+                }
+                else {
+                    JOptionPane.showMessageDialog(rootPane, "Taille non valide");
+                }
             }
             else{
                 JOptionPane.showMessageDialog(rootPane, "Le mot de passe est mal confirmé.");
@@ -269,6 +317,10 @@ public class FnInscription2 extends javax.swing.JFrame {
         initFnCo();
         this.setVisible(false);
     }//GEN-LAST:event_btCancelActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        sexeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "non renseigné", "femme", "homme" }));
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

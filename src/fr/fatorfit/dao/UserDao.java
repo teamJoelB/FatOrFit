@@ -43,16 +43,25 @@ public class UserDao {
     }
     
     public static void insert(User u) throws SQLException{
-        String sql = "insert into person (nom, prenom, mail, mdp) VALUES (?,?,?,?)";
+        String sql = "insert into user (nom, prenom, mail, motdepasse, taille, date_de_naissance,sexe) VALUES (?,?,?,?)";
         Connection connexion = ConnectDb.getConnection();
         
         PreparedStatement requete = connexion.prepareStatement(sql);
         
         requete.setString(1, u.getNom());
-        requete.setString(1, u.getPrenom());
-        requete.setString(1, u.getMail());
-        requete.setString(1, u.getMotDePasse());
-  
+        requete.setString(2, u.getPrenom());
+        requete.setString(3, u.getMail());
+        requete.setString(4, u.getMotDePasse());
+        requete.setInt(6, u.getTaille());
+        requete.setDate(7, u.getDateDeNaissance());  // controler la conversion de date
+        requete.setBoolean(8, u.isSexe());
+        
+        // ajouter un poids a l'utilisateur, pensez a voir si l'user a deja un id
+        String sql2 = "insert into poids (valeur, user_iduser) VALUES (?,?)";
+        PreparedStatement requete2 = connexion.prepareStatement(sql2);
+        requete2.setString(1, u.getNom());
+        requete2.setInt(2, u.getId());
+        
     }
     
     public static List<User> getAllUsers() throws SQLException {
