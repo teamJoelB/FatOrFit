@@ -19,6 +19,7 @@ public class User {
     private int taille;
     private String motDePasse;
     private Date dateDeNaissance;
+    private Date derniereConnexion;
     
     public User() {
     }
@@ -41,6 +42,14 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }  
+
+    public Date getDerniereConnexion() {
+        return derniereConnexion;
+    }
+
+    public void setDerniereConnexion(Date derniereConnexion) {
+        this.derniereConnexion = derniereConnexion;
+    }
 
     public void setNom(String nom) {
         this.nom = nom;
