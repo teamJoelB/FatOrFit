@@ -204,6 +204,7 @@ public class FnPrincipal extends javax.swing.JFrame {
     private void cbProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProfilActionPerformed
         if(cbProfil.getSelectedItem()=="Se déconnecter"){
             FnConnexion fnCo = new FnConnexion();
+            UserDao.deconnexion(user);
             this.setVisible(false);
             fnCo.setVisible(true);
         }
