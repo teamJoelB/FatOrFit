@@ -5,6 +5,7 @@
  */
 package fr.fatorfit.ihm;
 
+import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
 
 /**
@@ -34,8 +35,6 @@ private static User user;
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -48,6 +47,7 @@ private static User user;
         lbPoids = new javax.swing.JLabel();
         lbTaille = new javax.swing.JLabel();
         lbDdn = new javax.swing.JLabel();
+        lbSexe = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -58,7 +58,7 @@ private static User user;
 
         jPanel2.setBackground(new java.awt.Color(165, 209, 82));
 
-        jLabel1.setText("Modifier mon profil");
+        jLabel1.setText("mon profil");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -76,10 +76,6 @@ private static User user;
                 .addComponent(jLabel1)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
-
-        jCheckBox1.setText("Masculin");
-
-        jCheckBox2.setText("Féminin");
 
         jLabel2.setText("Sexe");
 
@@ -110,6 +106,8 @@ private static User user;
 
         lbDdn.setText("jLabel5");
 
+        lbSexe.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -135,20 +133,19 @@ private static User user;
                 .addGap(209, 209, 209)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(32, 32, 32)
-                        .addComponent(lbPrenom))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(31, 31, 31)
                         .addComponent(lbPoids))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(55, 55, 55)
-                        .addComponent(jCheckBox1)
-                        .addGap(40, 40, 40)
-                        .addComponent(jCheckBox2)))
-                .addGap(186, 186, 186))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbSexe))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(32, 32, 32)
+                            .addComponent(lbPrenom))))
+                .addGap(329, 329, 329))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,12 +156,11 @@ private static User user;
                     .addComponent(jLabel4)
                     .addComponent(lbNom, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPrenom))
-                .addGap(38, 38, 38)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
-                .addGap(52, 52, 52)
+                    .addComponent(lbSexe))
+                .addGap(57, 57, 57)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
@@ -217,11 +213,24 @@ private static User user;
         lbNom.setText(user.getNom());
         lbPrenom.setText(user.getPrenom());
         if(user.getTaille()<0){
-            lbTaille.setText("non défini");
+            lbTaille.setText("non renseignée");
         }
         else{
         lbTaille.setText(String.valueOf(user.getTaille()));
         }
+        lbSexe.setText(user.getSexe());
+        try { 
+            if(UserDao.getCurrentPoids(user)<0){
+            
+                lbPoids.setText("non renseigné");
+            }
+            else{
+                lbPoids.setText(String.valueOf(UserDao.getCurrentPoids(user)+" kilos"));
+            }
+            
+        } catch (Exception e) {
+        }
+       
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -264,8 +273,6 @@ private static User user;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btValider;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -280,6 +287,7 @@ private static User user;
     private javax.swing.JLabel lbNom;
     private javax.swing.JLabel lbPoids;
     private javax.swing.JLabel lbPrenom;
+    private javax.swing.JLabel lbSexe;
     private javax.swing.JLabel lbTaille;
     // End of variables declaration//GEN-END:variables
 }

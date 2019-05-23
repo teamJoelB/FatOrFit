@@ -19,7 +19,7 @@ import java.sql.SQLException;
  * @author ESIC
  */
 public class FnInscription2 extends javax.swing.JFrame {
-
+   private static User user;
     /**
      * Creates new form FnInscription2
      */
@@ -56,7 +56,6 @@ public class FnInscription2 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        sexeBox = new javax.swing.JComboBox<>();
         txtNom = new javax.swing.JTextField();
         txtPrenom = new javax.swing.JTextField();
         txtMail = new javax.swing.JTextField();
@@ -67,6 +66,8 @@ public class FnInscription2 extends javax.swing.JFrame {
         txtDate = new javax.swing.JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
         btCancel = new javax.swing.JToggleButton();
         txtPoids = new javax.swing.JTextField();
+        btM = new javax.swing.JCheckBox();
+        btF = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -112,8 +113,6 @@ public class FnInscription2 extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel10.setText("Sexe");
 
-        sexeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txtNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomActionPerformed(evt);
@@ -152,6 +151,20 @@ public class FnInscription2 extends javax.swing.JFrame {
             }
         });
 
+        btM.setText("Masculin");
+        btM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMActionPerformed(evt);
+            }
+        });
+
+        btF.setText("Féminin");
+        btF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,15 +185,14 @@ public class FnInscription2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(55, 55, 55)
-                            .addComponent(txtTaille))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(39, 39, 39)
-                            .addComponent(txtMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(55, 55, 55)
+                        .addComponent(txtTaille))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(39, 39, 39)
+                        .addComponent(txtMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -196,13 +208,15 @@ public class FnInscription2 extends javax.swing.JFrame {
                         .addGap(47, 47, 47)
                         .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(45, 45, 45)
-                        .addComponent(sexeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(41, 41, 41)
-                        .addComponent(txtPoids, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPoids, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(33, 33, 33)
+                        .addComponent(btM)
+                        .addGap(38, 38, 38)
+                        .addComponent(btF)))
                 .addContainerGap(141, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -238,13 +252,14 @@ public class FnInscription2 extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtTaille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPoids, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
-                    .addComponent(sexeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btM)
+                    .addComponent(btF))
+                .addGap(20, 20, 20)
                 .addComponent(btConfirmer)
                 .addGap(18, 18, 18)
                 .addComponent(btCancel)
@@ -279,7 +294,7 @@ public class FnInscription2 extends javax.swing.JFrame {
         int taille=-1;
         double poids=-1;
         
-        String sexe= (String)sexeBox.getSelectedItem();
+        String sexe = "Non renseigné";
 
         if (!txtTaille.getText().equals("")){
 
@@ -355,7 +370,7 @@ public class FnInscription2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        sexeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "non renseigné", "femme", "homme" }));
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void txtPoidsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPoidsActionPerformed
@@ -371,6 +386,17 @@ public class FnInscription2 extends javax.swing.JFrame {
         if (!txtDate.getText().equals(currentTime))
             txtDateTextChanged=true;
     }//GEN-LAST:event_txtDateMouseExited
+
+    private void btMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMActionPerformed
+        btF.setSelected(false);
+        user.setSexe("M");
+        
+    }//GEN-LAST:event_btMActionPerformed
+
+    private void btFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFActionPerformed
+        btM.setSelected(false);
+        user.setSexe("F");
+    }//GEN-LAST:event_btFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,6 +436,8 @@ public class FnInscription2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btCancel;
     private javax.swing.JToggleButton btConfirmer;
+    private javax.swing.JCheckBox btF;
+    private javax.swing.JCheckBox btM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -420,7 +448,6 @@ public class FnInscription2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JComboBox<String> sexeBox;
     private javax.swing.JTextField txtConfirmerMail;
     private javax.swing.JPasswordField txtConfirmerMdp;
     private javax.swing.JFormattedTextField txtDate;
