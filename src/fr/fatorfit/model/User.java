@@ -24,11 +24,13 @@ public class User {
     public User() {
     }
 
-    public User(String nom, String prenom, String mail, String motDePasse) {
+    public User(String nom, String prenom, String mail, String motDePasse, int taille, String sexe, Date ddn) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
+        this.taille = taille;
+        dateDeNaissance = ddn;
     }
 
     public void setSexe(String sexe) {

@@ -7,6 +7,7 @@ package fr.fatorfit.ihm;
 
 import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
+import fr.fatorfit.model.Poids;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -287,15 +288,24 @@ public class FnInscription2 extends javax.swing.JFrame {
         }
                
 
-        Date dateDeNaissance;
-        User u = new User(nom, prenom, mail, mdp);
+        Date ddn;
+        ddn = txtDate.getDate();
+        
+        String sexe= (String)sexeBox.getSelectedItem();     
+        
+        User u = new User(nom, prenom, mail, mdp, taille, sexe, ddn);                   
 
-        String sexe= (String)sexeBox.getSelectedItem();
-            u.setSexe(sexe);                              
-
+        
         // gerer ddn
         try {
-            UserDao.insert(u);
+            UserDao.insertUser(u);
+            
+            if (poids>=0){
+                int idUser = UserDao.getLastIdUser();
+                Poids p = new Poids(poids, idUser);
+                UserDao.insertPoids(p);
+            }
+            
             this.setVisible(false);
             initFnCo();
         } catch (SQLException e) {
