@@ -7,6 +7,9 @@ package fr.fatorfit.ihm;
 
 import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.Activite;
+import fr.fatorfit.model.ObjectifSemaine;
+import fr.fatorfit.model.User;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +19,16 @@ import java.util.List;
 
 public class FnAjoutObjectif extends javax.swing.JFrame {
 private static String a = "Activité            Durée";
-   
+ private static double kilosperte=0;
+  private static double kilosgain=0;
+ 
       
     /**
      * Creates new form AjoutObjectif
      */
-    public FnAjoutObjectif() {
+   private static User user;
+    public FnAjoutObjectif(User user) {
+        this.user = user;
         initComponents();
     }
 
@@ -284,7 +291,7 @@ private static String a = "Activité            Durée";
     }//GEN-LAST:event_formWindowOpened
 
     private void btPerteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPerteActionPerformed
-        Double kilosperte =Double.parseDouble(JOptionPane.showInputDialog("Nombre de kilos à perdre cette semaine"));
+        kilosperte =Double.parseDouble(JOptionPane.showInputDialog("Nombre de kilos à perdre cette semaine"));
         txtObj.setText("- "+kilosperte+" kilos");
     }//GEN-LAST:event_btPerteActionPerformed
 
@@ -293,12 +300,23 @@ private static String a = "Activité            Durée";
     }//GEN-LAST:event_txtObjActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Double kilosgain =Double.parseDouble(JOptionPane.showInputDialog("Nombre de kilos à prendre cette semaine"));
+        kilosgain =Double.parseDouble(JOptionPane.showInputDialog("Nombre de kilos à prendre cette semaine"));
         txtObj.setText("+ "+kilosgain+" kilos");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+      if(kilosperte!=0){
+          kilosperte*=(-1);
+          ObjectifSemaine Os = new ObjectifSemaine();
+          Os.setValeur(kilosperte);
+           java.util.Date dt = new java.util.Date();
+          Os.setDatedebut((Date) dt);
+          try {
+              UserDao.insertObjectifSemaine(Os, user);
+          } catch (Exception e) {
+          }
+          
+      }
         this.setVisible(false);
                 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -334,7 +352,7 @@ private static String a = "Activité            Durée";
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FnAjoutObjectif().setVisible(true);
+                new FnAjoutObjectif(user).setVisible(true);
             }
         });
     }

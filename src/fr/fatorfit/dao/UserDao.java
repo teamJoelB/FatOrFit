@@ -5,6 +5,7 @@
  */
 package fr.fatorfit.dao;
 
+import fr.fatorfit.model.ObjectifSemaine;
 import fr.fatorfit.model.Poids;
 import fr.fatorfit.model.User;
 import java.sql.Connection;
@@ -205,5 +206,22 @@ public class UserDao {
             users.add(u);
         }
         return users;
+    }
+    
+    public static void insertObjectifSemaine(ObjectifSemaine Os, User u) throws SQLException{
+        int iduser = u.getId();
+        String sql = "insert into objectifsemaine (valeur, datedebut, datefin) VALUES (?,?,?) WHERE user_iduser=?";
+        Connection connexion = ConnectDb.getConnection();
+        
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        
+        requete.setDouble(1, Os.getValeur());
+        requete.setDate(2, Os.getDatedebut());
+        requete.setDate(3, Os.getDatefin());
+         requete.setInt(4, iduser);
+        
+        requete.execute();
+        
+        
     }
 }
