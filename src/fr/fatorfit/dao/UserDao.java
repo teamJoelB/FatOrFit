@@ -5,6 +5,7 @@
  */
 package fr.fatorfit.dao;
 
+import fr.fatorfit.model.Poids;
 import fr.fatorfit.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,8 +43,27 @@ public class UserDao {
         return u;
     }
     
-    public static void insert(User u) throws SQLException{
-        String sql = "insert into user (nom, prenom, mail, motdepasse, taille, date_de_naissance,sexe) VALUES (?,?,?,?)";
+    public static String currentDateTimeJava2Sql(){
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(dt);
+        return currentTime;
+    }
+    
+    public static String DateTimeJava2Sql(java.util.Date dt){
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateTime = sdf.format(dt);
+        return dateTime;
+    }
+    
+    public static String DateJava2Sql(java.util.Date dt){
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(dt);
+        return date;
+    }
+    
+    public static void insertUser(User u) throws SQLException{
+        String sql = "insert into user (nom, prenom, mail, motdepasse, sexe) VALUES (?,?,?,?)";
         Connection connexion = ConnectDb.getConnection();
         
         PreparedStatement requete = connexion.prepareStatement(sql);
@@ -52,17 +72,43 @@ public class UserDao {
         requete.setString(2, u.getPrenom());
         requete.setString(3, u.getMail());
         requete.setString(4, u.getMotDePasse());
-        requete.setInt(6, u.getTaille());
-        requete.setDate(7, u.getDateDeNaissance());  // controler la conversion de date
-        requete.setString(8, u.getSexe());
+        requete.setString(5, u.getSexe());
         
-        // ajouter un poids a l'utilisateur, pensez a voir si l'user a deja un id
-        String sql2 = "insert into poids (valeur, user_iduser) VALUES (?,?)";
-        PreparedStatement requete2 = connexion.prepareStatement(sql2);
-        requete2.setString(1, u.getNom());
-        requete2.setInt(2, u.getId());
+        requete.execute();
+        
+        int taille = u.getTaille();
+        if (taille>=0){
+            sql = "insert into user (taille) VALUES (?)";   
+            requete = connexion.prepareStatement(sql);
+            requete.setInt(1, u.getTaille());
+            requete.execute();
+        }
+        
+        requete.setDate(1, u.getDateDeNaissance());  // controler la conversion de date
         
     }
+    
+    public static void insertPoids(Poids p) throws SQLException{
+        String sql = "insert into poids (poids, user_iduser) VALUES (?,?)";
+        Connection connexion = ConnectDb.getConnection();
+        
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        
+        requete.setDouble(1, p.getValeur());
+        requete.setInt(2, p.getIdUser());
+        
+        requete.execute();
+        
+    }
+    
+    public static int getLastIdUser() throws SQLException{
+        String sql = "SELECT iduser FROM user WHERE iduser = LAST_INSERT_ID()";
+        Connection connexion = ConnectDb.getConnection();
+        Statement requete = connexion.createStatement();
+        ResultSet rs = requete.executeQuery(sql);
+        return(rs.getInt("iduser"));
+    }
+
     
     public static List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
