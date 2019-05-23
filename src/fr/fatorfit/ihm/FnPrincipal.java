@@ -218,7 +218,7 @@ public class FnPrincipal extends javax.swing.JFrame {
             fnAi.setVisible(true);
         }
          if(cbProfil.getSelectedItem()=="Modifier mon profil"){
-            FnModifierProfil fnMp = new FnModifierProfil();
+            FnConsulterProfil fnMp = new FnConsulterProfil();
             fnMp.setVisible(true);
             this.setVisible(false);
         }
