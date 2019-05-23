@@ -70,6 +70,23 @@ public class UserDao {
         return currentTime;
     }
     
+    public static void deconnexion(User u) throws SQLException{
+        
+        String sql = "insert into user (derniereconnexion) VALUES CURRENT_TIMESTAMP"; 
+        Connection connexion = ConnectDb.getConnection();
+        Statement requete = connexion.createStatement();
+        requete.executeQuery(sql);
+        
+    }
+    
+    public static int getIdCategorie(String libele)throws SQLException{
+        String sql = "SELECT idcategorie FROM categorie WHERE libele = ?";
+        Connection connexion = ConnectDb.getConnection();
+        Statement requete = connexion.createStatement();
+        ResultSet rs = requete.executeQuery(sql);
+        return(rs.getInt("idcatgorie"));
+    }
+    
     public static void insertUser(User u) throws SQLException{
         String sql = "insert into user (nom, prenom, mail, motdepasse, sexe) VALUES (?,?,?,?)";
         Connection connexion = ConnectDb.getConnection();
