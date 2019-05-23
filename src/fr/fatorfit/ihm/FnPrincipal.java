@@ -231,9 +231,15 @@ public class FnPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cbObjectifActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(user.getTaille()<0 || UserDao.getCurrentPoids(user)<0){
-            Avertissement.setText("Attention, votre taille ou votre poids ne sont pas renseignés");
+        double poids;
+        try {
+           poids = UserDao.getCurrentPoids(user);
+           if(user.getTaille()<0 || poids <0){
+                Avertissement.setText("Attention, votre taille ou votre poids ne sont pas renseignés");
+            }
+        } catch (Exception e) {
         }
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

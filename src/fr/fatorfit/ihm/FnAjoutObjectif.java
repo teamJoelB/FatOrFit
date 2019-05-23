@@ -5,15 +5,19 @@
  */
 package fr.fatorfit.ihm;
 
+import fr.fatorfit.model.Activite;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author ESIC*/
 
 public class FnAjoutObjectif extends javax.swing.JFrame {
 
+   
+      
     /**
      * Creates new form AjoutObjectif
      */
@@ -80,7 +84,7 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
 
         jLabel2.setText("Activité");
 
-        cbActivite.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Marche à pied", "Course", "Natation", "Crossfit", "Danse" }));
+        cbActivite.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "football", "basketball", "natation", "crossfit", "danse", "marche", "course" }));
 
         btOk.setText("Ok");
         btOk.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +148,7 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
                         .addComponent(cbActivite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 521, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(88, 88, 88))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -235,6 +239,8 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
 	  return a;
 	}
     private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
+        
+        List<Activite> objectifsDuJour = new ArrayList<>();
         if(EstUnNombre(txtDuree.getText())==1){
             JOptionPane.showMessageDialog(rootPane, "Durée invalide");
         }
@@ -242,14 +248,11 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Durée trop longue (> 10heures!!)");
     }
         else{
-       DefaultTableModel model = new DefaultTableModel();
-        Object[] obj = new Object[2]; 
-             obj[0] = cbActivite.getSelectedItem(); 
-             obj[1] = txtDuree.getText();  
-             model.addRow(obj); 
-             tableObj.setModel(model); 
-             
-        }
+            if(cbActivite.getSelectedItem()=="Danse"){
+                
+            }
+        }   
+   
     }//GEN-LAST:event_btOkActionPerformed
 
     private void txtDureeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDureeActionPerformed
@@ -258,7 +261,7 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Activité");/*A ne pas faire dans le design sinon on est en statique, on veut que le tableau s'adapte aux données donc en dynamique (code)*/
+        model.addColumn("Activité");
         model.addColumn("Durée");
         
       tableObj.setModel(model);
