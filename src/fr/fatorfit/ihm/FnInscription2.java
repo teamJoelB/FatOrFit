@@ -26,6 +26,10 @@ public class FnInscription2 extends javax.swing.JFrame {
         initComponents();
     }
     
+    private java.util.Date dt = new java.util.Date();
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+    String currentTime = sdf.format(dt);
+    
     private void initFnCo(){
         FnConnexion fnCon = new FnConnexion();
         fnCon.setVisible(true);
@@ -119,11 +123,8 @@ public class FnInscription2 extends javax.swing.JFrame {
 
         txtConfirmerMdp.setText("jPasswordField2");
 
-        txtTaille.setText("jTextField5");
+        txtTaille.setText("180");
 
-        java.util.Date dt = new java.util.Date();
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-        String currentTime = sdf.format(dt);
         txtDate.setText(currentTime);
         txtDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +139,7 @@ public class FnInscription2 extends javax.swing.JFrame {
             }
         });
 
+        txtPoids.setText("75.2");
         txtPoids.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPoidsActionPerformed(evt);
@@ -193,7 +195,7 @@ public class FnInscription2 extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(41, 41, 41)
-                        .addComponent(txtPoids, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPoids, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(141, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -302,14 +304,15 @@ public class FnInscription2 extends javax.swing.JFrame {
                
         Date dateDeNaissance = null;
         
-        String ddn;
-        ddn = txtDate.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            dateDeNaissance = sdf.parse(ddn);
-        } catch (Exception e) {
+        if(txtFieldTextChanged){
+            String ddn;
+            ddn = txtDate.getText();
+            // SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                dateDeNaissance = sdf.parse(ddn);
+            } catch (Exception e) {
+            }
         }
-        
         
         User u = new User(nom, prenom, mail, mdp, taille, sexe, dateDeNaissance);                   
 
@@ -352,8 +355,10 @@ public class FnInscription2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPoidsActionPerformed
 
+    private boolean txtFieldTextChanged=false;
     private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "n'importe quoi quoi");
+        if (!txtDate.getText().equals(currentTime))
+            txtFieldTextChanged=true;
     }//GEN-LAST:event_txtDateActionPerformed
 
     /**
