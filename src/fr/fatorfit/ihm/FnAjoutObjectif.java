@@ -242,7 +242,7 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Durée trop longue (> 10heures!!)");
     }
         else{
-           tableObj.addRow(new String[]{txtDuree.getText(),cbActivite.getSelectedItem().toString()}); 
+            
         }
     }//GEN-LAST:event_btOkActionPerformed
 
