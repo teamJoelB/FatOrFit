@@ -243,74 +243,69 @@ public class FnInscription2 extends javax.swing.JFrame {
         String mail = txtMail.getText();
         String confirmerMail = txtConfirmerMail.getText();
         
-        if (mail.equals(confirmerMail)){
-        
-            String mdp = txtMdp.getText();
-            String confirmerMdp = txtConfirmerMdp.getText();
-            
-            if (mdp.equals(confirmerMdp)){
-
-                String nom = txtNom.getText();
-                String prenom = txtPrenom.getText();
-                
-                int taille=-1;
-                double poids=-1;
-                
-                if (txtTaille.getText()!=""){
-                
-                    try {
-                        taille = Integer.parseInt(txtTaille.getText());
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(rootPane, "Taille non valide");
-                    }
-                    
-                    if (taille>0){
-                
-                        if (txtPoids.getText()!=""){
-                                try {
-                                    poids = Double.parseDouble(txtPoids.getText());
-                                } catch (Exception e) {
-                                    JOptionPane.showMessageDialog(rootPane, "Poids non valide");
-                                }
-                            
-                            if (poids>0) {
-
-                                Date dateDeNaissance;
-                                User u = new User(nom, prenom, mail, mdp);
-
-                                String sexe= (String)sexeBox.getSelectedItem();
-                                    u.setSexe(sexe);                              
-
-                                // gerer taille, sexe, ddn, poids
-                                try {
-                                    UserDao.insert(u);
-                                    this.setVisible(false);
-                                    initFnCo();
-                                } catch (SQLException e) {
-                                    JOptionPane.showMessageDialog(rootPane, e.getMessage());
-                                }
-                                FnConnexion fnCon = new FnConnexion();
-                                this.setVisible(false);
-                                fnCon.setVisible(true);
-                                } 
-                            }
-                            else{
-                              JOptionPane.showMessageDialog(rootPane, "Poids non valide");
-                            }
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(rootPane, "Taille non valide");
-                    }
-                }
-                
-            }   
-            else{
-                JOptionPane.showMessageDialog(rootPane, "Le mot de passe est mal confirmé.");
-            }
-        }
-        else{
+        if (!mail.equals(confirmerMail)){
             JOptionPane.showMessageDialog(rootPane, "L'adresse email est mal confirmée.");
         }
+        
+        String mdp = txtMdp.getText();
+        String confirmerMdp = txtConfirmerMdp.getText();
+            
+        if (!mdp.equals(confirmerMdp)){
+            JOptionPane.showMessageDialog(rootPane, "Le mot de passe est mal confirmé.");
+        }
+
+        String nom = txtNom.getText();
+        String prenom = txtPrenom.getText();
+
+        int taille=-1;
+        double poids=-1;
+
+        if (!txtTaille.getText().equals("")){
+
+            try {
+                taille = Integer.parseInt(txtTaille.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Taille non valide");
+            }
+
+            if (taille<0){
+                JOptionPane.showMessageDialog(rootPane, "Taille non valide");
+            }
+        }
+                
+        if (!txtPoids.getText().equals("")){
+
+            try {
+                poids = Double.parseDouble(txtPoids.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Poids non valide");
+            }
+
+            if (poids<0) {
+                JOptionPane.showMessageDialog(rootPane, "Poids non valide");
+            }
+        }
+               
+
+        Date dateDeNaissance;
+        User u = new User(nom, prenom, mail, mdp);
+
+        String sexe= (String)sexeBox.getSelectedItem();
+            u.setSexe(sexe);                              
+
+        // gerer ddn
+        try {
+            UserDao.insert(u);
+            this.setVisible(false);
+            initFnCo();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        
+        FnConnexion fnCon = new FnConnexion();
+        this.setVisible(false);
+        fnCon.setVisible(true);                     
+
     }                                          
 
     private void btAnnulerActionPerformed(java.awt.event.ActionEvent evt) {                                     
