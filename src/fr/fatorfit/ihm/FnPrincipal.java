@@ -5,6 +5,7 @@
  */
 package fr.fatorfit.ihm;
 
+import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
 
 
@@ -230,7 +231,7 @@ public class FnPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cbObjectifActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(user.getTaille()<0){
+        if(user.getTaille()<0 || UserDao.getCurrentPoids(user)<0){
             Avertissement.setText("Attention, votre taille ou votre poids ne sont pas renseignés");
         }
     }//GEN-LAST:event_formWindowOpened

@@ -43,6 +43,7 @@ public class UserDao {
         return u;
     }
     
+    
     public static String currentDateTimeJava2Sql(){
         java.util.Date dt = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -60,6 +61,13 @@ public class UserDao {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(dt);
         return date;
+    }
+    
+    public static String currentDateJava2Sql(){
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String currentTime = sdf.format(dt);
+        return currentTime;
     }
     
     public static void insertUser(User u) throws SQLException{
@@ -99,6 +107,29 @@ public class UserDao {
         
         requete.execute();
         
+    }
+    
+    public static double getCurrentPoids(User user) throws SQLException{
+        Poids p = null;
+        int iduser = user.getId();
+        String sql = "select valeur from poids where datepoids>=ALL(select valeur from poids where user_iduser=?)";
+         Connection connexion = ConnectDb.getConnection();
+        
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        
+         requete.setInt(1, iduser);
+        
+        ResultSet rs = requete.executeQuery();
+           if(rs.next()){
+                p = new Poids();
+                p.setValeur(rs.getDouble("valeur"));
+                p.setId(rs.getInt("idpoids"));
+                p.setDateAjout(rs.getDate("datepoids"));
+                p.setIdUser(rs.getInt(iduser));
+             
+        }
+        
+        return p.getValeur();
     }
     
     public static int getLastIdUser() throws SQLException{

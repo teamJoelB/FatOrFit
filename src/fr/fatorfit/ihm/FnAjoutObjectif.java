@@ -242,7 +242,13 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Durée trop longue (> 10heures!!)");
     }
         else{
-            
+       DefaultTableModel model = new DefaultTableModel();
+        Object[] obj = new Object[2]; 
+             obj[0] = cbActivite.getSelectedItem(); 
+             obj[1] = txtDuree.getText();  
+             model.addRow(obj); 
+             tableObj.setModel(model); 
+             
         }
     }//GEN-LAST:event_btOkActionPerformed
 
@@ -254,6 +260,7 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
        DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Activité");/*A ne pas faire dans le design sinon on est en statique, on veut que le tableau s'adapte aux données donc en dynamique (code)*/
         model.addColumn("Durée");
+        
       tableObj.setModel(model);
     }//GEN-LAST:event_formWindowOpened
     
