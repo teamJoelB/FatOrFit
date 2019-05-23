@@ -126,6 +126,11 @@ public class FnInscription2 extends javax.swing.JFrame {
         txtTaille.setText("180");
 
         txtDate.setText(currentTime);
+        txtDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtDateMouseExited(evt);
+            }
+        });
         txtDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDateActionPerformed(evt);
@@ -304,7 +309,7 @@ public class FnInscription2 extends javax.swing.JFrame {
                
         Date dateDeNaissance = null;
         
-        if(txtFieldTextChanged){
+        if(txtDateTextChanged){
             String ddn;
             ddn = txtDate.getText();
             // SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -355,11 +360,15 @@ public class FnInscription2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPoidsActionPerformed
 
-    private boolean txtFieldTextChanged=false;
+    private boolean txtDateTextChanged=false;
     private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
-        if (!txtDate.getText().equals(currentTime))
-            txtFieldTextChanged=true;
+
     }//GEN-LAST:event_txtDateActionPerformed
+
+    private void txtDateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDateMouseExited
+        if (!txtDate.getText().equals(currentTime))
+            txtDateTextChanged=true;
+    }//GEN-LAST:event_txtDateMouseExited
 
     /**
      * @param args the command line arguments
