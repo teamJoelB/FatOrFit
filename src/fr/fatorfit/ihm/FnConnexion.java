@@ -7,6 +7,7 @@ package fr.fatorfit.ihm;
 
 import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,21 +196,31 @@ public class FnConnexion extends javax.swing.JFrame {
     private void btConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConnexionActionPerformed
         String identifiant = txtIdentifiant.getText();
         String mdp = txtMdp.getText();
+        User user=null;
         
         try{
-            User user = UserDao.getByLoginPass(identifiant, mdp);
-            if(user!=null){
-               
-               FnPrincipal fnp = new FnPrincipal(user);
-                 
-                fnp.setVisible(true);
-              
-            }
-             else{
-                 lbMsg.setText("Identifiant ou mot de passe incorrect !");
-        }
-        }catch(Exception e){
+            user = UserDao.getByLoginPass(identifiant, mdp);
+        }catch(SQLException e){
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        if(user!=null){
+               
+                FnPrincipal fnp = new FnPrincipal(user);
+                java.util.Date derCo=null; 
+                try {
+                    derCo = UserDao.getDerniereConnexion(user);
+                } catch (SQLException e) {
+                     JOptionPane.showMessageDialog(rootPane, e.getMessage());
+                }
+                if (derCo==null){
+                    FnDecouverte fnd = new FnDecouverte(user);
+                    fnd.setVisible(true);
+                }
+                fnp.setVisible(true);           
+                this.setVisible(false);
+        }
+        else{
+             lbMsg.setText("Identifiant ou mot de passe incorrect !");
         }
         
         
