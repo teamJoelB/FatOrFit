@@ -8,6 +8,7 @@ package fr.fatorfit.ihm;
 import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
 import java.sql.SQLException;
+import java.util.Date;
 
 
 
@@ -40,7 +41,7 @@ public class FnPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbDerCo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -63,7 +64,7 @@ public class FnPrincipal extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(165, 209, 82));
         jLabel1.setText("Mon compte");
 
-        jLabel2.setText("Dernière connexion :");
+        lbDerCo.setText("Dernière connexion :");
 
         jLabel3.setText("/*A ajouter");
 
@@ -74,23 +75,23 @@ public class FnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(371, 371, 371)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(92, 92, 92))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(118, 118, 118))))
+                        .addGap(118, 118, 118))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbDerCo, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(22, 22, 22)
+                .addComponent(lbDerCo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -243,8 +244,19 @@ public class FnPrincipal extends javax.swing.JFrame {
            if(user.getTaille()<0 || poids <0){
                 Avertissement.setText("Attention, votre taille ou votre poids ne sont pas renseignés");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
+        lbDerCo.setText("Première connexion");
+        try {
+            Date derCo = UserDao.getDerniereConnexion(user);
+            if (derCo!=null){
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String derCoString=sdf.format(derCo);
+                lbDerCo.setText("Dernière connexion :" + derCoString);
+            }
+        } catch (SQLException e) {
+        }
+        
         
     }//GEN-LAST:event_formWindowOpened
 
@@ -295,12 +307,12 @@ public class FnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbDerCo;
     // End of variables declaration//GEN-END:variables
 }

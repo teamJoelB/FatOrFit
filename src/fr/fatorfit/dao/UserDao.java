@@ -43,6 +43,15 @@ public class UserDao {
         return u;
     }
     
+    public static java.util.Date dateSql2Java(java.sql.Date dateSql){
+        java.util.Date dateJava;
+        if (dateSql==null)
+             dateJava = null;
+        else{
+            dateJava = new java.util.Date(dateSql.getTime());
+        }
+        return dateJava;
+    }
     
     public static String currentDateTimeJava2Sql(){
         java.util.Date dt = new java.util.Date();
@@ -72,17 +81,32 @@ public class UserDao {
     
     public static void deconnexion(User u) throws SQLException{
         
-        String sql = "insert into user (derniereconnexion) VALUES CURRENT_TIMESTAMP"; 
+        String sql = "UPDATE fatorfit.user SET derniereconnexion = CURRENT_TIMESTAMP WHERE (iduser = ?)";
         Connection connexion = ConnectDb.getConnection();
-        Statement requete = connexion.createStatement();
-        requete.executeQuery(sql);
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        requete.setInt(1, u.getId());
+        requete.executeQuery();
         
+    }
+    
+    public static java.util.Date getDerniereConnexion(User u) throws SQLException{
+        String sql = "select derniereconnexion from user WHERE iduser = ?";
+        Connection connexion = ConnectDb.getConnection();
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        requete.setInt(1, u.getId());
+        ResultSet rs = requete.executeQuery();
+        
+        java.sql.Date dateSql = rs.getDate("derniereconnexion");
+        java.util.Date dateJava;
+        dateJava = dateSql2Java(dateSql);
+        return(dateJava);
     }
     
     public static int getIdCategorie(String libele)throws SQLException{
         String sql = "SELECT idcategorie FROM categorie WHERE libele = ?";
         Connection connexion = ConnectDb.getConnection();
-        Statement requete = connexion.createStatement();
+        PreparedStatement requete = connexion.prepareStatement(sql);
+        requete.setString(1, libele);
         ResultSet rs = requete.executeQuery(sql);
         return(rs.getInt("idcatgorie"));
     }
@@ -103,16 +127,18 @@ public class UserDao {
         
         int taille = u.getTaille();
         if (taille>=0){
-            sql = "insert into user (taille) VALUES (?)";   
+            sql = "UPDATE fatorfit.user SET taille=? WHERE (iduser = ?)";   
             requete = connexion.prepareStatement(sql);
             requete.setInt(1, u.getTaille());
+            requete.setInt(2, u.getId());
             requete.execute();
         }
         
         if (u.getDateDeNaissance()!= null){
-            sql = "insert into user (date_de_naissance) VALUES (?)";
+            sql = "UPDATE fatorfit.user SET date_de_naissance=? WHERE (iduser = ?)"; 
             requete = connexion.prepareStatement(sql);
-            requete.setString(1, DateJava2Sql(u.getDateDeNaissance()));  // controler la conversion de date
+            requete.setString(1, DateJava2Sql(u.getDateDeNaissance())); 
+            requete.setInt(2, u.getId());
             requete.execute();
         }
     }
