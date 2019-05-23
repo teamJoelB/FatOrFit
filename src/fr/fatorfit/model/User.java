@@ -12,7 +12,7 @@ import java.sql.Date;
  */
 public class User {
     private int id;
-    private boolean sexe;
+    private String sexe;
     private String nom;
     private String prenom;
     private String mail;
@@ -31,7 +31,7 @@ public class User {
         this.motDePasse = motDePasse;
     }
 
-    public void setSexe(boolean sexe) {
+    public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 
@@ -76,7 +76,7 @@ public class User {
     }
     
     
-    public boolean isSexe() {
+    public String getSexe() {
         return sexe;
     }
 
