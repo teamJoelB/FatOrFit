@@ -9,6 +9,7 @@ import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.Activite;
 import fr.fatorfit.model.ObjectifSemaine;
 import fr.fatorfit.model.User;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
@@ -307,6 +308,9 @@ private static String a = "Activité            Durée";
       if(kilosperte!=0){
           kilosperte*=(-1);
           ObjectifSemaine Os = new ObjectifSemaine();
+          Os.setValeur(kilosperte);
+           java.util.Date dt = new java.util.Date();
+          Os.setDatedebut((Date) dt);
           try {
               UserDao.insertObjectifSemaine(Os, user);
           } catch (Exception e) {
