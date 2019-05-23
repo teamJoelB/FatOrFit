@@ -35,7 +35,7 @@ public class UserDao {
                 u.setNom(rs.getString("nom"));
                 u.setPrenom(rs.getString("prenom"));
                 u.setDateDeNaissance(rs.getDate("date_de_naissance"));
-                u.setSexe(rs.getBoolean("sexe"));
+                u.setSexe(rs.getString("sexe"));
                 u.setTaille(rs.getInt("taille"));
         }
         
@@ -54,7 +54,7 @@ public class UserDao {
         requete.setString(4, u.getMotDePasse());
         requete.setInt(6, u.getTaille());
         requete.setDate(7, u.getDateDeNaissance());  // controler la conversion de date
-        requete.setBoolean(8, u.isSexe());
+        requete.setString(8, u.getSexe());
         
         // ajouter un poids a l'utilisateur, pensez a voir si l'user a deja un id
         String sql2 = "insert into poids (valeur, user_iduser) VALUES (?,?)";
