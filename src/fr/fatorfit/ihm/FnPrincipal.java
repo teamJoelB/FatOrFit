@@ -227,7 +227,7 @@ public class FnPrincipal extends javax.swing.JFrame {
 
     private void cbObjectifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbObjectifActionPerformed
         if(cbObjectif.getSelectedItem()=="Nouvel objectif"){
-            FnAjoutObjectif fnAo = new FnAjoutObjectif();
+            FnAjoutObjectif fnAo = new FnAjoutObjectif(user);
             fnAo.setVisible(true);
         }
         if(cbObjectif.getSelectedItem()=="Historique"){
