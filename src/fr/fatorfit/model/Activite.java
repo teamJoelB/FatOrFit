@@ -26,6 +26,7 @@ public class Activite {
         this.idCategorie = idCategorie;
     }
 
+     
     public Activite() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

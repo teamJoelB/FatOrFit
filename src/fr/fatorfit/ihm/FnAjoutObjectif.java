@@ -5,9 +5,9 @@
  */
 package fr.fatorfit.ihm;
 
+import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.Activite;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -237,21 +237,23 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
 			}
 
 	  return a;
-	}
+    }
     private void btOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOkActionPerformed
         
-        List<Activite> objectifsDuJour = new ArrayList<>();
+        List<> objectifsDuJour = new ArrayList<>();
         if(EstUnNombre(txtDuree.getText())==1){
             JOptionPane.showMessageDialog(rootPane, "Durée invalide");
         }
         else if(Integer.parseInt(txtDuree.getText())> 600){
         JOptionPane.showMessageDialog(rootPane, "Durée trop longue (> 10heures!!)");
-    }
+        }
         else{
-            if(cbActivite.getSelectedItem()=="Danse"){
-                
-            }
-        }   
+            Activite a = new Activite();
+            a.setDuree(Integer.parseInt(txtDuree.getText()));
+            //a.setIdCategorie(UserDao.getIdCategorie(cbActivite.getSelectedItem()));  
+            objectifsDuJour.add(a);
+        }
+           
    
     }//GEN-LAST:event_btOkActionPerformed
 
@@ -260,11 +262,7 @@ public class FnAjoutObjectif extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDureeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Activité");
-        model.addColumn("Durée");
-        
-      tableObj.setModel(model);
+       
     }//GEN-LAST:event_formWindowOpened
     
     /**
