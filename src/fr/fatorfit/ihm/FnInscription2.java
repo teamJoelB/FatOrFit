@@ -8,8 +8,9 @@ package fr.fatorfit.ihm;
 import fr.fatorfit.dao.UserDao;
 import fr.fatorfit.model.User;
 import fr.fatorfit.model.Poids;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,7 +59,7 @@ public class FnInscription2 extends javax.swing.JFrame {
         txtMdp = new javax.swing.JPasswordField();
         txtConfirmerMdp = new javax.swing.JPasswordField();
         txtTaille = new javax.swing.JTextField();
-        txtDate = new javax.swing.JFormattedTextField();
+        txtDate = new javax.swing.JFormattedTextField(new SimpleDateFormat("dd/MM/yyyy"));
         btCancel = new javax.swing.JToggleButton();
         txtPoids = new javax.swing.JTextField();
 
@@ -120,7 +121,15 @@ public class FnInscription2 extends javax.swing.JFrame {
 
         txtTaille.setText("jTextField5");
 
-        txtDate.setText("jFormattedTextField1");
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        String currentTime = sdf.format(dt);
+        txtDate.setText(currentTime);
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateActionPerformed(evt);
+            }
+        });
 
         btCancel.setText("Annuler");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +194,7 @@ public class FnInscription2 extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addGap(41, 41, 41)
                         .addComponent(txtPoids, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,6 +269,8 @@ public class FnInscription2 extends javax.swing.JFrame {
 
         int taille=-1;
         double poids=-1;
+        
+        String sexe= (String)sexeBox.getSelectedItem();
 
         if (!txtTaille.getText().equals("")){
 
@@ -271,6 +282,7 @@ public class FnInscription2 extends javax.swing.JFrame {
 
             if (taille<0){
                 JOptionPane.showMessageDialog(rootPane, "Taille non valide");
+                return;
             }
         }
                 
@@ -284,16 +296,22 @@ public class FnInscription2 extends javax.swing.JFrame {
 
             if (poids<0) {
                 JOptionPane.showMessageDialog(rootPane, "Poids non valide");
+                return;
             }
         }
                
-
-        Date ddn;
-        ddn = txtDate.getDate();
+        Date dateDeNaissance = null;
         
-        String sexe= (String)sexeBox.getSelectedItem();     
+        String ddn;
+        ddn = txtDate.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateDeNaissance = sdf.parse(ddn);
+        } catch (Exception e) {
+        }
         
-        User u = new User(nom, prenom, mail, mdp, taille, sexe, ddn);                   
+        
+        User u = new User(nom, prenom, mail, mdp, taille, sexe, dateDeNaissance);                   
 
         
         // gerer ddn
@@ -333,6 +351,10 @@ public class FnInscription2 extends javax.swing.JFrame {
     private void txtPoidsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPoidsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPoidsActionPerformed
+
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "n'importe quoi quoi");
+    }//GEN-LAST:event_txtDateActionPerformed
 
     /**
      * @param args the command line arguments

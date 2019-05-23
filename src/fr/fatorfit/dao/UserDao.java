@@ -84,8 +84,12 @@ public class UserDao {
             requete.execute();
         }
         
-        requete.setDate(1, u.getDateDeNaissance());  // controler la conversion de date
-        
+        if (u.getDateDeNaissance()!= null){
+            sql = "insert into user (date_de_naissance) VALUES (?)";
+            requete = connexion.prepareStatement(sql);
+            requete.setString(1, DateJava2Sql(u.getDateDeNaissance()));  // controler la conversion de date
+            requete.execute();
+        }
     }
     
     public static void insertPoids(Poids p) throws SQLException{

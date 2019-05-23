@@ -85,7 +85,7 @@
                       <Component id="txtPoids" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="133" max="32767" attributes="0"/>
+              <EmptySpace pref="141" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -276,8 +276,17 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtDate">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="currentTime" type="code"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDateActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(new SimpleDateFormat(&quot;dd/MM/yyyy&quot;))"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="java.util.Date dt = new java.util.Date();&#xa;java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(&quot;dd/MM/yyyy&quot;);&#xa;String currentTime = sdf.format(dt);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JToggleButton" name="btCancel">
       <Properties>

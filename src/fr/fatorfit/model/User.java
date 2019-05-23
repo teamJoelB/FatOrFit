@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package fr.fatorfit.model;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
